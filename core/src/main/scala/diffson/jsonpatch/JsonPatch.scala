@@ -49,6 +49,8 @@ sealed abstract class Operation[Json: Jsony] {
             JsArray(before ++ (updated +: after.tail))
           }
       }
+    case (JsArray(elems), Inner(Left("*"), tl)) =>
+      elems.map(action[F](_, tl, parent)).traverse(identity).map(JsArray(_))
     case (_, Inner(elem, _)) =>
       F.raiseError(new PatchException(show"element ${elem.fold(identity[String], _.toString)} does not exist at path $parent"))
   }
@@ -97,6 +99,8 @@ case class Remove[Json: Jsony](path: Pointer, old: Option[Json] = None) extends 
           val (before, after) = arr.splitAt(idx)
           F.pure(JsArray(before ++ after.tail))
         }
+      case (JsArray(_), Leaf(Left("*"))) =>
+        F.pure(JsArray(Vector()))
       case (JsArray(_), Leaf(Left("-"))) =>
         // how could we possibly remove an element that appears after the last one?
         F.raiseError(new PatchException(show"element - does not exist at path $parent"))
@@ -124,6 +128,8 @@ case class Replace[Json: Jsony](path: Pointer, value: Json, old: Option[Json] = 
           F.raiseError(new PatchException(show"element $idx does not exist at path $parent"))
         else
           F.pure(JsArray(arr.updated(idx, value)))
+      case (JsArray(arr), Leaf(Left("*"))) =>
+        F.pure(JsArray(arr.map(_ => value)))
       case (JsArray(_), Leaf(Left("-"))) =>
         F.raiseError(new PatchException(show"element - does not exist at path $parent"))
       case (JsObject(obj), Leaf(ObjectField(lbl))) =>

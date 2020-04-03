@@ -1,6 +1,8 @@
 Gnieh Diffson [![Build Status](https://travis-ci.org/gnieh/diffson.png)](https://travis-ci.org/gnieh/diffson) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9892e2c968974ecb951d21969adbadaa)](https://www.codacy.com/app/satabin/diffson?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gnieh/diffson&amp;utm_campaign=Badge_Grade) [![Code Coverage](https://codecov.io/github/gnieh/diffson/coverage.svg?branch=master)](https://codecov.io/github/gnieh/diffson?branch=master) [![Maven Central](https://img.shields.io/maven-central/v/org.gnieh/diffson-core_2.13.svg)](https://maven-badges.herokuapp.com/maven-central/org.gnieh/diffson-core_2.13) [![Scaladoc](https://javadoc.io/badge/org.gnieh/diffson-core_2.13.svg)](https://javadoc.io/doc/org.gnieh/diffson-core_2.13)
 =============
 
+Extended version of library to be able to use `*` operation on array so it is possible execute operations on all array elements.
+
 [![Join the chat at https://gitter.im/gnieh/diffson](https://badges.gitter.im/gnieh/diffson.svg)](https://gitter.im/gnieh/diffson?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 A [scala][6] implementation of the [RFC-6901][1], [RFC-6902][2], and [RFC-7396][11].
